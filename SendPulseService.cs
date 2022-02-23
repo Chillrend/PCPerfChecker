@@ -9,6 +9,8 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using IniParser;
+using IniParser.Model;
 
 namespace PCPerfChecker
 {
@@ -49,8 +51,13 @@ namespace PCPerfChecker
 
         public void OnTimer(object sender, ElapsedEventArgs args)
         {
+            var parser = new FileIniDataParser();
+            IniData data = parser.ReadFile(AppDomain.CurrentDomain.BaseDirectory + "Configuration.ini");
+
+            string messagePassed = data["Options"]["MessagePassed"];
             //TODO: Insert Monitoring Activities Here
             eventLog1.WriteEntry("Hohoho 60 Seconds has passed..");
+            eventLog1.WriteEntry("Message passed: " + messagePassed);
         }
 
         protected override void OnStop()
