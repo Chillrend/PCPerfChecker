@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCPerfChecker", "PCPerfChecker.csproj", "{D29F3DA5-BFF3-4816-9A85-5960D271F406}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BranchSwitcher", "..\BranchSwitcher\BranchSwitcher.csproj", "{FBCE8A08-FC65-4A30-B3B4-B7EE00CCB51F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D29F3DA5-BFF3-4816-9A85-5960D271F406}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D29F3DA5-BFF3-4816-9A85-5960D271F406}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D29F3DA5-BFF3-4816-9A85-5960D271F406}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBCE8A08-FC65-4A30-B3B4-B7EE00CCB51F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBCE8A08-FC65-4A30-B3B4-B7EE00CCB51F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBCE8A08-FC65-4A30-B3B4-B7EE00CCB51F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBCE8A08-FC65-4A30-B3B4-B7EE00CCB51F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
