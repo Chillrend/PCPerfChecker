@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using IniParser;
 using IniParser.Model;
+using RestSharp;
 
 namespace PCPerfChecker
 {
@@ -49,15 +50,39 @@ namespace PCPerfChecker
             SetServiceStatus(this.ServiceHandle, ref serviceStatus);
         }
 
-        public void OnTimer(object sender, ElapsedEventArgs args)
+        public async void OnTimer(object sender, ElapsedEventArgs args)
         {
             var parser = new FileIniDataParser();
             IniData data = parser.ReadFile(AppDomain.CurrentDomain.BaseDirectory + "Configuration.ini");
 
-            string messagePassed = data["Options"]["MessagePassed"];
-            //TODO: Insert Monitoring Activities Here
+            string url = $@"{ data["Options"]["AliveUrl"] }";
+            string branch = $@"{ data["Options"]["BranchCode"] }";
+
+            RestClient client = new RestClient(url);
+
+            try
+            {
+                var request = new RestRequest("", Method.Get);
+                request.AddParameter("branch_code", branch);
+
+                var alive = await client.GetAsync(request);
+
+                if (alive.IsSuccessful)
+                {
+                    eventLog1.WriteEntry("Succesfully sent alive status to server");
+                }
+                else
+                {
+                    throw new Exception("Failed at REST Request!");
+                }
+            }
+            catch (Exception ex)
+            {
+                eventLog1.WriteEntry("Failed to send alive status to server..");
+            }
+            
+
             eventLog1.WriteEntry("Hohoho 60 Seconds has passed..");
-            eventLog1.WriteEntry("Message passed: " + messagePassed);
         }
 
         protected override void OnStop()
