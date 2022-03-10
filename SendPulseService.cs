@@ -33,6 +33,16 @@ namespace PCPerfChecker
             eventLog1.Log = "";
         }
 
+        public void StartService(string[] args)
+        {
+            this.OnStart(args);
+        }
+
+        public void StopService()
+        {
+            this.OnStop();
+        }
+
         protected override void OnStart(string[] args)
         {
             eventLog1.WriteEntry("PC Perf Checker service is starting...");

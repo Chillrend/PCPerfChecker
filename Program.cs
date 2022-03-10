@@ -12,12 +12,18 @@ namespace PCPerfChecker
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main()
+        static void Main(string[] args)
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[]
+            SendPulseService service = new SendPulseService();
+            if (args.Contains("-c", StringComparer.InvariantCultureIgnoreCase) || args.Contains("-console", StringComparer.InvariantCultureIgnoreCase))
             {
-                new SendPulseService()
+                service.StartService(args);
+                Console.ReadLine();
+                service.StopService();
+                return;
+            }
+            ServiceBase[] ServicesToRun = new ServiceBase[] { 
+                service
             };
             ServiceBase.Run(ServicesToRun);
         }
