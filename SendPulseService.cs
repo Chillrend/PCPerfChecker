@@ -69,30 +69,26 @@ namespace PCPerfChecker
             string branch = $@"{ data["Options"]["BranchCode"] }";
 
             RestClient client = new RestClient(url);
+            var request = new RestRequest(branch, Method.Post);
 
             try
             {
-                var request = new RestRequest("", Method.Get);
-                request.AddParameter("branch_code", branch);
-
-                var alive = await client.GetAsync(request);
+                var alive = await client.PostAsync(request);
+                eventLog1.WriteEntry("Trying to send to URL: " + client.BuildUri(request));
 
                 if (alive.IsSuccessful)
                 {
-                    eventLog1.WriteEntry("Succesfully sent alive status to server");
+                    eventLog1.WriteEntry("Succesfully sent alive status to server. Sent to URL: " + client.BuildUri(request));
                 }
                 else
                 {
-                    throw new Exception("Failed at REST Request!");
+                    throw new Exception("Failed at REST Request!. Was trying to send to URL: " + client.BuildUri(request) + ". Reason: " + alive.ErrorMessage);
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex)    
             {
-                eventLog1.WriteEntry("Failed to send alive status to server..");
+                eventLog1.WriteEntry("Failed to send alive status to server.. Reason: " + ex.Message + " URL: " + client.BuildUri(request));
             }
-            
-
-            eventLog1.WriteEntry("Hohoho 60 Seconds has passed..");
         }
 
         protected override void OnStop()
